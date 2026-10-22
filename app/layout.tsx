@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Tenor_Sans, Geist_Mono } from "next/font/google";
-import { ClerkProvider } from '@clerk/nextjs'
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
 const tenorSans = Tenor_Sans({
@@ -19,15 +19,38 @@ export const metadata: Metadata = {
   description: "Automated GitHub repository testing and analysis platform",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <ClerkProvider>
-    <html
-      lang="en"
-      className={`${tenorSans.variable} ${geistMono.variable} ${tenorSans.className} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
-    </html>
+      <html
+        lang="en"
+        suppressHydrationWarning
+        className={`${tenorSans.variable} ${geistMono.variable} ${tenorSans.className} h-full antialiased`}
+      >
+        <head>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                try {
+                  const t = localStorage.getItem('testpilot_theme');
+                  if (t === 'light') {
+                    document.documentElement.classList.add('light');
+                    document.documentElement.setAttribute('data-theme', 'light');
+                  } else {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                  }
+                } catch (e) {}
+              `,
+            }}
+          />
+        </head>
+        <body className="min-h-full flex flex-col">{children}</body>
+      </html>
     </ClerkProvider>
   );
 }

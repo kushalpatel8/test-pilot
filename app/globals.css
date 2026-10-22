@@ -3,6 +3,306 @@
 @import "shadcn/tailwind.css";
 
 @theme {
-  --font-sans: var(--font-tenor-sans), sans-serif;
+  --font-sans: var(--font-tenor-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* THEMES Palette Tokens */
+  --color-bg-main: var(--bg-main);
+  --color-bg-card: var(--bg-card);
+  --color-bg-sidebar: var(--bg-sidebar);
+  --color-border-theme: var(--border-theme);
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
+  --color-accent-theme: var(--accent-theme);
+  --color-accent-hover: var(--accent-hover);
+
+  /* Chart & Graph Colors (mpl) */
+  --color-mpl-primary: var(--mpl-primary);
+  --color-mpl-highlight: var(--mpl-highlight);
+  --color-mpl-success: var(--mpl-success);
+  --color-mpl-inactive: var(--mpl-inactive);
+  --color-mpl-edge: var(--mpl-edge);
 }
 
+:root {
+  /* =========================================================================
+     Dark Theme: 🌆 Sunset Amber (Default)
+     ========================================================================= */
+  --theme-id: "sunset";
+  --bg-main: #171412;
+  --bg-card: #211c19;
+  --bg-sidebar: #0d0b0a;
+  --border-theme: #3b302a;
+  --text-main: #fffbeb;
+  --text-muted: #a89b91;
+  --accent-theme: #f59e0b;
+  --accent-hover: #d97706;
+
+  /* Action & Execution Gradients */
+  --accent-gradient: linear-gradient(to right, #f59e0b, #ea580c);
+  --btn-play-gradient: linear-gradient(to bottom, #f59e0b, #ea580c);
+  --btn-play-border: #c2410c;
+  --btn-pause-gradient: linear-gradient(to bottom, #ef4444, #dc2626);
+  --btn-pause-border: #b91c1c;
+  --btn-step-gradient: linear-gradient(to bottom, #d97706, #b45309);
+  --btn-step-border: #92400e;
+
+  /* Data Visualization (mpl) */
+  --mpl-fig-bg: #171412;
+  --mpl-ax-bg: #211c19;
+  --mpl-primary: #f59e0b;
+  --mpl-highlight: #ef4444;
+  --mpl-success: #10b981;
+  --mpl-inactive: #3b302a;
+  --mpl-edge: #d97706;
+  --mpl-text: #fffbeb;
+  --mpl-border: #3b302a;
+
+  /* App Foundations */
+  --background: #171412;
+  --foreground: #fffbeb;
+  --card: #211c19;
+  --card-foreground: #fffbeb;
+  --popover: #211c19;
+  --popover-foreground: #fffbeb;
+  --primary: #f59e0b;
+  --primary-foreground: #171412;
+  --secondary: #211c19;
+  --secondary-foreground: #fffbeb;
+  --muted: #211c19;
+  --muted-foreground: #a89b91;
+  --accent: #2c2520;
+  --accent-foreground: #fffbeb;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #3b302a;
+  --input: #211c19;
+  --ring: #f59e0b;
+  --radius: 0.75rem;
+}
+
+/* =========================================================================
+   Light Theme: ☀️ Nordic Light
+   ========================================================================= */
+:root[data-theme="light"],
+html[data-theme="light"],
+html.light,
+.light,
+[data-theme="light"] {
+  --theme-id: "light" !important;
+  --bg-main: #f1f5f9 !important;
+  --bg-card: #ffffff !important;
+  --bg-sidebar: #e2e8f0 !important;
+  --border-theme: #cbd5e1 !important;
+  --text-main: #0f172a !important;
+  --text-muted: #475569 !important;
+  --accent-theme: #059669 !important;
+  --accent-hover: #047857 !important;
+
+  /* Action & Execution Gradients */
+  --accent-gradient: linear-gradient(to right, #059669, #047857) !important;
+  --btn-play-gradient: linear-gradient(to bottom, #059669, #047857) !important;
+  --btn-play-border: #065f46 !important;
+  --btn-pause-gradient: linear-gradient(to bottom, #ea580c, #c2410c) !important;
+  --btn-pause-border: #9a3412 !important;
+  --btn-step-gradient: linear-gradient(to bottom, #0d9488, #0f766e) !important;
+  --btn-step-border: #115e59 !important;
+
+  /* Data Visualization (mpl) */
+  --mpl-fig-bg: #f1f5f9 !important;
+  --mpl-ax-bg: #ffffff !important;
+  --mpl-primary: #059669 !important;
+  --mpl-highlight: #dc2626 !important;
+  --mpl-success: #16a34a !important;
+  --mpl-inactive: #e2e8f0 !important;
+  --mpl-edge: #047857 !important;
+  --mpl-text: #0f172a !important;
+  --mpl-border: #cbd5e1 !important;
+
+  /* App Foundations */
+  --background: #f1f5f9 !important;
+  --foreground: #0f172a !important;
+  --card: #ffffff !important;
+  --card-foreground: #0f172a !important;
+  --popover: #ffffff !important;
+  --popover-foreground: #0f172a !important;
+  --primary: #059669 !important;
+  --primary-foreground: #ffffff !important;
+  --secondary: #e2e8f0 !important;
+  --secondary-foreground: #0f172a !important;
+  --muted: #f1f5f9 !important;
+  --muted-foreground: #475569 !important;
+  --accent: #e2e8f0 !important;
+  --accent-foreground: #0f172a !important;
+  --destructive: #dc2626 !important;
+  --destructive-foreground: #ffffff !important;
+  --border: #cbd5e1 !important;
+  --input: #cbd5e1 !important;
+  --ring: #059669 !important;
+
+  /* Tailwind CSS v4 Neutral Color Inversions for Nordic Light */
+  --color-neutral-950: #ffffff !important;
+  --color-neutral-900: #ffffff !important;
+  --color-neutral-800: #e2e8f0 !important;
+  --color-neutral-700: #cbd5e1 !important;
+  --color-neutral-600: #94a3b8 !important;
+  --color-neutral-500: #64748b !important;
+  --color-neutral-400: #475569 !important;
+  --color-neutral-300: #334155 !important;
+  --color-neutral-200: #1e293b !important;
+  --color-neutral-100: #0f172a !important;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* =========================================================================
+   Light Theme Automatic Propagation Rules
+   ========================================================================= */
+html[data-theme="light"] body,
+html.light body {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* Cards & Panel Backgrounds in Light Mode */
+html[data-theme="light"] .bg-\[\#211c19\],
+html.light .bg-\[\#211c19\],
+html[data-theme="light"] .bg-\[\#171412\],
+html.light .bg-\[\#171412\],
+html[data-theme="light"] .bg-neutral-900\/50,
+html.light .bg-neutral-900\/50,
+html[data-theme="light"] .bg-neutral-900\/40,
+html.light .bg-neutral-900\/40,
+html[data-theme="light"] .bg-neutral-900\/80,
+html.light .bg-neutral-900\/80,
+html[data-theme="light"] .bg-neutral-900,
+html.light .bg-neutral-900,
+html[data-theme="light"] .bg-neutral-950\/70,
+html.light .bg-neutral-950\/70,
+html[data-theme="light"] .bg-neutral-950\/80,
+html.light .bg-neutral-950\/80,
+html[data-theme="light"] .bg-neutral-950,
+html.light .bg-neutral-950 {
+  background-color: #ffffff !important;
+}
+
+/* Sidebars & Sub-headers in Light Mode */
+html[data-theme="light"] .bg-\[\#0d0b0a\],
+html.light .bg-\[\#0d0b0a\],
+html[data-theme="light"] aside,
+html.light aside {
+  background-color: #e2e8f0 !important;
+}
+
+html[data-theme="light"] header,
+html.light header {
+  background-color: rgba(226, 232, 240, 0.85) !important;
+}
+
+/* Borders in Light Mode */
+html[data-theme="light"] .border-\[\#3b302a\],
+html.light .border-\[\#3b302a\],
+html[data-theme="light"] .border-neutral-800,
+html.light .border-neutral-800,
+html[data-theme="light"] .border-neutral-800\/80,
+html.light .border-neutral-800\/80,
+html[data-theme="light"] .border-neutral-800\/60,
+html.light .border-neutral-800\/60,
+html[data-theme="light"] .border-neutral-700,
+html.light .border-neutral-700 {
+  border-color: #cbd5e1 !important;
+}
+
+/* Typography in Light Mode */
+html[data-theme="light"] .text-\[\#fffbeb\],
+html.light .text-\[\#fffbeb\],
+html[data-theme="light"] .text-white,
+html.light .text-white,
+html[data-theme="light"] .text-neutral-100,
+html.light .text-neutral-100,
+html[data-theme="light"] .text-neutral-200,
+html.light .text-neutral-200 {
+  color: #0f172a !important;
+}
+
+html[data-theme="light"] .text-\[\#a89b91\],
+html.light .text-\[\#a89b91\],
+html[data-theme="light"] .text-neutral-400,
+html.light .text-neutral-400,
+html[data-theme="light"] .text-neutral-500,
+html.light .text-neutral-500 {
+  color: #475569 !important;
+}
+
+/* Execution Action Buttons */
+.btn-play {
+  background: var(--btn-play-gradient);
+  border: 1px solid var(--btn-play-border);
+  color: #ffffff !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px 0 rgba(245, 158, 11, 0.25);
+}
+.btn-play:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.btn-pause {
+  background: var(--btn-pause-gradient);
+  border: 1px solid var(--btn-pause-border);
+  color: #ffffff !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-pause:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.btn-step {
+  background: var(--btn-step-gradient);
+  border: 1px solid var(--btn-step-border);
+  color: #ffffff !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-step:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+/* Glassmorphism & Elevation */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-theme);
+}
+
+.glass-panel-hover {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-panel-hover:hover {
+  border-color: var(--accent-theme);
+  transform: translateY(-2px);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-theme);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}

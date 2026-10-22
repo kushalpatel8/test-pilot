@@ -1,0 +1,123 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum TestRunStatus {
+  QUEUED
+  RUNNING
+  PASSED
+  FAILED
+  CANCELLED
+  ERROR
+}
+
+enum AnalysisStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+model User {
+  id           String       @id @default(cuid())
+  clerkUserId  String       @unique
+  email        String?
+  name         String?
+  imageUrl     String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  repositories Repository[]
+  testRuns     TestRun[]
+
+  @@map("users")
+}
+
+model Repository {
+  id                 String    @id @default(cuid())
+  userId             String
+  githubRepositoryId String
+  owner              String
+  name               String
+  fullName           String
+  defaultBranch      String    @default("main")
+  isConnected        Boolean   @default(true)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  testRuns           TestRun[]
+
+  @@unique([userId, githubRepositoryId])
+  @@index([userId])
+  @@map("repositories")
+}
+
+model TestRun {
+  id                 String        @id @default(cuid())
+  repositoryId       String
+  userId             String
+  branch             String
+  commitSha          String
+  commitMessage      String?
+  status             TestRunStatus @default(QUEUED)
+  startedAt          DateTime?
+  completedAt        DateTime?
+  durationMs         Int?
+  totalTests         Int           @default(0)
+  passedTests        Int           @default(0)
+  failedTests        Int           @default(0)
+  skippedTests       Int           @default(0)
+  errorTests         Int           @default(0)
+  coveragePercentage Float?
+  logs               String?       @db.Text
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  repository         Repository    @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+  user               User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  testResults        TestResult[]
+  qaReport           QAReport?
+
+  @@index([repositoryId])
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("test_runs")
+}
+
+model TestResult {
+  id           String    @id @default(cuid())
+  testRunId    String
+  testName     String
+  testFile     String
+  status       String    // PASSED, FAILED, SKIPPED, ERROR
+  durationMs   Int?
+  errorMessage String?   @db.Text
+  stackTrace   String?   @db.Text
+  createdAt    DateTime  @default(now())
+
+  testRun      TestRun   @relation(fields: [testRunId], references: [id], onDelete: Cascade)
+
+  @@index([testRunId])
+  @@map("test_results")
+}
+
+model QAReport {
+  id             String         @id @default(cuid())
+  testRunId      String         @unique
+  summary        String         @db.Text
+  analysisJson   Json
+  model          String
+  analysisStatus AnalysisStatus @default(PENDING)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  testRun        TestRun        @relation(fields: [testRunId], references: [id], onDelete: Cascade)
+
+  @@map("qa_reports")
+}
