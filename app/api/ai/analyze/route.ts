@@ -3,6 +3,8 @@ import { requireUser } from "@/lib/auth";
 import { AiAnalysisService } from "@/services/ai-analysis.service";
 import { z } from "zod";
 
+export const dynamic = "force-dynamic";
+
 const analyzeSchema = z.object({
   testRunId: z.string().min(1, "testRunId is required"),
 });
